@@ -10,4 +10,12 @@ module.exports = {
     },
     optimizeForDisabled: true,
     persistRepoData: true,
+    hostRules: [
+        {
+            hostType: 'docker',
+            username: 'unjxde',
+            password: process.env.DOCKER_HUB_PASSWORD,
+            concurrentRequestLimit: 2,
+        },
+    ],
 };
