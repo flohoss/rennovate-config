@@ -17,6 +17,6 @@ jobs:
       - run: renovate
         env:
           RENOVATE_CONFIG_FILE: ${{ gitea.workspace }}/config.js
-          LOG_LEVEL: 'debug'
+          LOG_LEVEL: 'info'
           RENOVATE_TOKEN: ${{ secrets.RENOVATE_TOKEN }}
-          GITHUB_COM_TOKEN: ${{ secrets.RENOVATE_GITHUB_TOKEN }} # optional
+          RENOVATE_GITHUB_COM_TOKEN: ${{ secrets.RENOVATE_GITHUB_TOKEN }}
