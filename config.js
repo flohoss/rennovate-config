@@ -17,5 +17,19 @@ module.exports = {
             password: process.env.DOCKER_HUB_PASSWORD,
             concurrentRequestLimit: 2,
         },
+        {
+            hostType: 'docker',
+            matchHost: 'ghcr.io',
+            username: 'flohoss',
+            password: process.env.RENOVATE_GITHUB_COM_TOKEN,
+        },
+        {
+            hostType: 'docker',
+            matchHost: 'dock.mau.dev'
+        },
+        {
+            hostType: 'docker',
+            matchHost: 'codeberg.org'
+        }
     ],
 };
