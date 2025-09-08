@@ -2,7 +2,7 @@ name: renovate
 
 on:
   workflow_dispatch: # allows the workflow to be run manually when desired
-  schedule: # runs this workflow at the scheduled time (uses UTC, adjust for your timezone)
+  schedule: # runs this workflow at the scheduled time (UTC)
     - cron: '0 12 * * *'
   push: # runs this workflow when pushes to the main branch are made
     branches:
@@ -10,14 +10,18 @@ on:
 
 jobs:
   renovate:
+    name: renovate
     runs-on: ubuntu-latest
     container: ghcr.io/renovatebot/renovate:latest
     steps:
-      - uses: actions/checkout@v4
-      - run: renovate
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+      - name: Run Renovate
+        uses: renovatebot/github-action@v43.0.11
+        with:
+          docker-user: root
+          token: ${{ secrets.RENOVATE_TOKEN }}
+          configurationFile: ${{ github.workspace }}/config.js
         env:
-          RENOVATE_CONFIG_FILE: ${{ gitea.workspace }}/config.js
-          LOG_LEVEL: 'info'
-          RENOVATE_TOKEN: ${{ secrets.RENOVATE_TOKEN }}
           RENOVATE_GITHUB_COM_TOKEN: ${{ secrets.RENOVATE_GITHUB_TOKEN }}
           DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
