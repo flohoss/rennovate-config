@@ -17,12 +17,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.2.2
       - name: Run Renovate
-        uses: https://github.com/renovatebot/github-action@v43.0.11
-        with:
-          docker-user: root
-          token: ${{ secrets.RENOVATE_TOKEN }}
-          configurationFile: ${{ github.workspace }}/config.js
-          mount-docker-socket: true
+        run: renovate
         env:
+          RENOVATE_CONFIG_FILE: ${{ github.workspace }}/config.js
+          RENOVATE_TOKEN: ${{ secrets.RENOVATE_TOKEN }}
           RENOVATE_GITHUB_COM_TOKEN: ${{ secrets.RENOVATE_GITHUB_TOKEN }}
           DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
