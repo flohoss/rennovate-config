@@ -22,6 +22,7 @@ jobs:
           docker-user: root
           token: ${{ secrets.RENOVATE_TOKEN }}
           configurationFile: ${{ github.workspace }}/config.js
+          mount-docker-socket: true
         env:
           RENOVATE_GITHUB_COM_TOKEN: ${{ secrets.RENOVATE_GITHUB_TOKEN }}
           DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
