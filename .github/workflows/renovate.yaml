@@ -34,7 +34,7 @@ jobs:
 
           if [ -n "$OPEN_PRS" ]; then
             echo "Open PRs found, sending notification..."
-            MESSAGE="Open Pull Requests:\n$OPEN_PRS"
+            MESSAGE=$(printf "Open Pull Requests:\n%s" "$OPEN_PRS")
             curl -s -X POST "$NTFY_URL" \
               -H "Authorization: Bearer $NTFY_TOKEN" \
               -d "$MESSAGE"
