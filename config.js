@@ -5,8 +5,9 @@ module.exports = {
     username: 'renovate[bot]',
     autodiscover: true,
     autodiscoverFilter: 'flohoss/*',
+    onboarding: false,
     persistRepoData: true,
-    dependencyDashboard: true,
+    dependencyDashboard: false,
 
     onboardingConfig: {
         $schema: 'https://docs.renovatebot.com/renovate-schema.json',
