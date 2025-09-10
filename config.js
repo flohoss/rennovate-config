@@ -4,7 +4,7 @@ module.exports = {
     gitAuthor: 'Renovate Bot <renovate@unjx.de>',
     username: 'renovate[bot]',
     autodiscover: true,
-    autodiscoverFilter: 'flohoss/docker-compose',
+    autodiscoverFilter: 'flohoss/*',
     persistRepoData: true,
     dependencyDashboard: true,
 
