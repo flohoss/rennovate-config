@@ -30,7 +30,7 @@ jobs:
           NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
         run: |
           echo "Fetching open pull requests..."
-          OPEN_PRS=$(gh pr list --state open --json title,url --jq '.[] | "- \(.title): \(.url)"')
+          OPEN_PRS=$(gh pr list --repo flohoss/docker-compose --state open --assignee flohoss --json title,url --jq '.[] | "- \(.title): \(.url)"')
 
           if [ -n "$OPEN_PRS" ]; then
             echo "Open PRs found, sending notification..."
