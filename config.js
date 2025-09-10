@@ -6,13 +6,6 @@ module.exports = {
     autodiscover: true,
     autodiscoverFilter: 'flohoss/*',
     onboarding: false,
-    persistRepoData: true,
-    dependencyDashboard: false,
-
-    onboardingConfig: {
-        $schema: 'https://docs.renovatebot.com/renovate-schema.json',
-        extends: ['config:recommended'],
-    },
 
     hostRules: [
         {
