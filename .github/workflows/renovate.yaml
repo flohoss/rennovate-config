@@ -40,3 +40,4 @@ jobs:
               -d "$MESSAGE"
           else
             echo "No open pull requests found."
+          fi
