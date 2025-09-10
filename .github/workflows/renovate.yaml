@@ -23,3 +23,20 @@ jobs:
           configurationFile: ${{ github.workspace }}/config.js
         env:
           DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      - name: Check Open PRs and Notify
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NTFY_URL: ${{ secrets.NTFY_URL }}
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
+        run: |
+          echo "Fetching open pull requests..."
+          OPEN_PRS=$(gh pr list --state open --json title,url --jq '.[] | "- \(.title): \(.url)"')
+
+          if [ -n "$OPEN_PRS" ]; then
+            echo "Open PRs found, sending notification..."
+            MESSAGE="Open Pull Requests:\n$OPEN_PRS"
+            curl -s -X POST "$NTFY_URL" \
+              -H "Authorization: Bearer $NTFY_TOKEN" \
+              -d "$MESSAGE"
+          else
+            echo "No open pull requests found."
