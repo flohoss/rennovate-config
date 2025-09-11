@@ -47,9 +47,11 @@ jobs:
                 -H "Authorization: Bearer $NTFY_TOKEN" \
                 -H "X-Tags: twisted_rightwards_arrows" \
                 -H "X-Title: PR #${NUMBER} - ${TITLE}" \
-                -d "$URL"
+                -H "X-Actions: view, Open PR, ${URL}" \
+                -d "A Renovate PR needs your attention."
             done
           else
             echo "No open pull requests found."
           fi
+
 
