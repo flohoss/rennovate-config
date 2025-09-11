@@ -30,14 +30,26 @@ jobs:
           NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
         run: |
           echo "Fetching open pull requests..."
-          OPEN_PRS=$(gh pr list --repo flohoss/docker-compose --state open --assignee flohoss --json title,url --jq '.[] | "- \(.title): \(.url)"')
+          OPEN_PRS=$(gh pr list \
+            --repo flohoss/docker-compose \
+            --state open \
+            --assignee flohoss \
+            --json number,title,url)
 
-          if [ -n "$OPEN_PRS" ]; then
-            echo "Open PRs found, sending notification..."
-            MESSAGE=$(printf "Open Pull Requests:\n%s" "$OPEN_PRS")
-            curl -s -X POST "$NTFY_URL" \
-              -H "Authorization: Bearer $NTFY_TOKEN" \
-              -d "$MESSAGE"
+          if [ "$(echo "$OPEN_PRS" | jq length)" -gt 0 ]; then
+            echo "Open PRs found, sending notifications..."
+            echo "$OPEN_PRS" | jq -c '.[]' | while read -r pr; do
+              NUMBER=$(echo "$pr" | jq -r '.number')
+              TITLE=$(echo "$pr" | jq -r '.title')
+              URL=$(echo "$pr" | jq -r '.url')
+
+              curl -s -X POST "$NTFY_URL" \
+                -H "Authorization: Bearer $NTFY_TOKEN" \
+                -H "X-Tags: twisted_rightwards_arrows" \
+                -H "X-Title: PR #${NUMBER} - ${TITLE}" \
+                -d "$URL"
+            done
           else
             echo "No open pull requests found."
           fi
+
