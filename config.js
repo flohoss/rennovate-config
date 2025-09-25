@@ -12,7 +12,7 @@ module.exports = {
             hostType: 'docker',
             matchHost: 'docker.io',
             username: 'unjxde',
-            password: process.env.DOCKER_HUB_PASSWORD,
+            password: String(process.env.DOCKER_HUB_PASSWORD || ''),
         }
     ],
 };
