@@ -8,6 +8,13 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  packages: read
+
+env:
+  TARGET_REPO: ${{ vars.TARGET_REPO }}
+
 jobs:
   renovate:
     name: renovate
@@ -22,6 +29,9 @@ jobs:
           token: ${{ secrets.RENOVATE_TOKEN }}
           configurationFile: ${{ github.workspace }}/config.js
         env:
+          GHCR_USERNAME: ${{ github.actor }}
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCKER_HUB_USERNAME: ${{ vars.DOCKER_HUB_USERNAME }}
           DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
       - name: Check Open PRs and Notify
         env:
@@ -31,7 +41,7 @@ jobs:
         run: |
           echo "Fetching open pull requests..."
           OPEN_PRS=$(gh pr list \
-            --repo flohoss/docker-compose \
+            --repo "$TARGET_REPO" \
             --state open \
             --assignee flohoss \
             --json number,title,url)
@@ -53,5 +63,3 @@ jobs:
           else
             echo "No open pull requests found."
           fi
-
-

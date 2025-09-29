@@ -4,15 +4,21 @@ module.exports = {
     gitAuthor: 'Renovate Bot <renovate@unjx.de>',
     username: 'renovate[bot]',
     autodiscover: true,
-    autodiscoverFilter: 'flohoss/docker-compose',
+    autodiscoverFilter: String(process.env.TARGET_REPO || ''),
     onboarding: false,
 
     hostRules: [
         {
             hostType: 'docker',
             matchHost: 'docker.io',
-            username: 'unjxde',
+            username: String(process.env.DOCKER_HUB_USERNAME || ''),
             password: String(process.env.DOCKER_HUB_PASSWORD || ''),
+        },
+        {
+            hostType: 'docker',
+            matchHost: 'ghcr.io',
+            username: String(process.env.GHCR_USERNAME || ''),
+            password: String(process.env.GHCR_TOKEN || ''),
         }
     ],
 };
