@@ -3,20 +3,21 @@ module.exports = {
     token: process.env.RENOVATE_TOKEN,
     gitAuthor: 'Florian Hoss <mail@florianhoss.de>',
     username: 'flohoss',
-    repositories: ['flohoss/docker-compose'],
+    repositories: ['flohoss/docker-compose', 'flohoss/stacks'],
     onboarding: false,
+    requireConfig: 'optional',
     hostRules: [
         {
             hostType: 'docker',
             matchHost: 'docker.io',
             username: 'unjxde',
-            password: String(process.env.DOCKER_HUB_PASSWORD || ''),
+            password: process.env.DOCKER_HUB_PASSWORD,
         },
         {
             hostType: 'docker',
             matchHost: 'ghcr.io',
             username: 'flohoss',
-            password: String(process.env.GHCR_TOKEN || ''),
+            password: process.env.GHCR_TOKEN,
         }
     ],
 };
