@@ -20,4 +20,10 @@ module.exports = {
             password: process.env.GHCR_TOKEN,
         }
     ],
+    postUpgradeTasks: {
+        commands: [
+            'curl -s -X POST "$NTFY_URL" -H "Authorization: Bearer $NTFY_TOKEN" -H "X-Tags: twisted_rightwards_arrows" -H "X-Title: Renovate PR - {{{depName}}}" -H "X-Actions: view, Open PR, {{{prUrl}}}" -d "A Renovate PR has been created/updated for {{{depName}}} ({{{currentVersion}}} → {{{newVersion}}})"'
+        ],
+        executionMode: 'branch' // Send one notification per PR branch (not per dependency update)
+    }
 };
