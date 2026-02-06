@@ -1,5 +1,6 @@
 module.exports = {
     platform: 'github',
+    token: process.env.RENOVATE_TOKEN,
     gitAuthor: 'Florian Hoss <mail@florianhoss.de>',
     username: 'flohoss',
     repositories: ['flohoss/docker-compose', 'flohoss/stacks'],
