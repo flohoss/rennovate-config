@@ -1,0 +1,29 @@
+name: renovate
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 15 * * *' # every day at 15:00 UTC
+
+jobs:
+  renovate:
+    name: renovate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+      - name: Run Renovate
+        uses: renovatebot/github-action@v46.0.2
+        with:
+          token: ${{ secrets.RENOVATE_TOKEN }}
+          configurationFile: ${{ github.workspace }}/config.js
+        env:
+          RENOVATE_AUTHOR: ${{ vars.AUTHOR }}
+          RENOVATE_PRIVATE_EMAIL: ${{ secrets.PRIVATE_EMAIL }}
+          RENOVATE_USERNAME: ${{ github.actor }}
+          RENOVATE_DOCKER_HUB_USERNAME: ${{ vars.DOCKER_HUB_USERNAME }}
+          RENOVATE_DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          RENOVATE_GHCR_USERNAME: ${{ vars.GHCR_USERNAME }}
+          RENOVATE_GHCR_TOKEN: ${{ secrets.RENOVATE_TOKEN }}
+          RENOVATE_NTFY_URL: ${{ vars.NTFY_URL }}
+          RENOVATE_NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
