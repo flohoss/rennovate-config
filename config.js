@@ -18,7 +18,7 @@ module.exports = {
             password: process.env.RENOVATE_GHCR_TOKEN,
         }
     ],
-    allowedCommands: ['^curl -s -X POST .*'],
+    allowedCommands: ['^curl -s -X POST "' + process.env.RENOVATE_NTFY_URL + '" .*'],
     postUpgradeTasks: {
         commands: [
             `curl -s -X POST "${process.env.RENOVATE_NTFY_URL}" -H "Authorization: Bearer ${process.env.RENOVATE_NTFY_TOKEN}" -H "X-Tags: twisted_rightwards_arrows" -H "X-Title: Renovate - {{{depName}}}" -d "{{{prTitle}}}"`
